@@ -196,6 +196,12 @@ OSXSerialPortSettings >> dataBitsMap [
 	^ {5 -> 16r00000000. 6 -> 16r00000100. 7 -> 16r00000200. 8 -> 16r00000300} asDictionary.
 ]
 
+{ #category : #library }
+OSXSerialPortSettings >> ffiLibrary [
+	
+	^ LibC
+]
+
 { #category : #accessing }
 OSXSerialPortSettings >> inFlowControl [
 

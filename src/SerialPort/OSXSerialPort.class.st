@@ -52,6 +52,12 @@ OSXSerialPort >> ffiClose: anInteger [
 	^ self ffiCall: #(int close(int anInteger))
 ]
 
+{ #category : #library }
+OSXSerialPort >> ffiLibrary [
+	
+	^ LibC
+]
+
 { #category : #'ffi-calls' }
 OSXSerialPort >> ffiOnFD: anFD set: serialPortSettings when: whenFlag [
 
