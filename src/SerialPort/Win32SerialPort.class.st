@@ -6,6 +6,7 @@ Class {
 		'handle'
 	],
 	#classVars : [
+		'BOOLEAN32',
 		'UINT32_HOLDER'
 	],
 	#category : #SerialPort
@@ -14,6 +15,7 @@ Class {
 { #category : #initialization }
 Win32SerialPort class >> initialize [
 
+	BOOLEAN32 := FFIBoolean32.
 	UINT32_HOLDER := FFIExternalValueHolder ofType: 'uint32' 
 ]
 
@@ -83,13 +85,14 @@ Win32SerialPort >> primCloseHandle: hObject [
 { #category : #primitives }
 Win32SerialPort >> primCreateFileW: lpFileName _: dwDesiredAccess _: dwShareMode _: lpSecurityAttributes _: dwCreationDisposition _: dwFlagsAndAttributes _: hTemplateFile [ 
 
-	^ self ffiCall: #(BOOLEAN32 WriteFile(
-								void*        hFile,
-								void*        lpBuffer,
-								uint32       nNumberOfBytesToWrite,
-								uint32*      lpNumberOfBytesWritten,
-								void* lpOverlapped
-							)) module: #Kernel32
+	^ self ffiCall: #(void* CreateFileW(
+						Win32WideString lpFileName,
+  						uint32                 dwDesiredAccess,
+  						uint32                 dwShareMode,
+  						void*						lpSecurityAttributes,
+  						uint32                 dwCreationDisposition,
+  						uint32                 dwFlagsAndAttributes,
+  						void*                hTemplateFile)) module: #Kernel32
 ]
 
 { #category : #primitives }
