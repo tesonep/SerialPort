@@ -18,6 +18,7 @@ SerialPortTest >> portName [
 
 	OSPlatform current isMacOSX ifTrue: [ ^ '/dev/cu.wchusbserial141330' ].
 	OSPlatform current isUnix ifTrue: [ ^ '/dev/ttyUSB0' ].
+	OSPlatform current isWindows ifTrue: [ ^ 'COM1' ].
 	
 	1halt
 
