@@ -1,3 +1,7 @@
+"
+I have the common behavior for the Linux and OSX serial port implementations.
+
+"
 Class {
 	#name : #UnixSerialPort,
 	#superclass : #Object,

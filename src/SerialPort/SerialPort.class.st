@@ -1,5 +1,7 @@
 "
-This class supports a simple interface to the serial ports of the underlying platform, if it supports serial ports. The mapping of port numbers to hardware ports is platform specific, but typically follows platform ordering conventions. 
+Objects of this class are the frontends of the serial ports.
+Serial ports are open using the system dependant names. 
+The actual implementation is platform dependant and it is delegated to the corresponding backend.
 "
 Class {
 	#name : #SerialPort,
@@ -203,7 +205,7 @@ SerialPort >> readByteArray: timeout [
 	timeremaining := timeout.
 	
 	count := self readInto: buf startingAt: 1 count: buf size.
-	
+
 	[ count = 0 and: [timeremaining > 0]] 
 		whileTrue: [ 
 			10 milliSecond wait.

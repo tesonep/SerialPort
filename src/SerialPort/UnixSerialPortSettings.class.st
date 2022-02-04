@@ -1,3 +1,8 @@
+"
+The struct used for holding the settings and the values for them are different in Linux and OSX.
+I encapsulate this behavior.
+There is a subclass for OSX and other for Linux
+"
 Class {
 	#name : #UnixSerialPortSettings,
 	#superclass : #FFIExternalStructure,

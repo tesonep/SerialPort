@@ -1,3 +1,7 @@
+"
+I handle the differences for the Linux serial port implementation.
+It only modifies the default class used as settings.
+"
 Class {
 	#name : #LinuxSerialPort,
 	#superclass : #UnixSerialPort,

@@ -1,3 +1,7 @@
+"
+I am the Pharo mapping of the DCB structure as defined in: https://docs.microsoft.com/en-us/windows/win32/api/winbase/ns-winbase-dcb
+I am used to configure the Serial port settings.
+"
 Class {
 	#name : #Win32SerialPortDCB,
 	#superclass : #FFIExternalStructure,
@@ -224,6 +228,15 @@ Win32SerialPortDCB >> XonLim: anObject [
 ]
 
 { #category : #'accessing - structure variables' }
+Win32SerialPortDCB >> fDtrControl: aValue [ 
+
+	aValue = 1 
+		ifTrue: [ self flags: self flags | MASK_fDtrControl ]
+		ifFalse: [ self flags: (self flags bitClear: MASK_fDtrControl) ]
+
+]
+
+{ #category : #'accessing - structure variables' }
 Win32SerialPortDCB >> fInX: aValue [
 
 	aValue = 1 
@@ -238,6 +251,15 @@ Win32SerialPortDCB >> fOutX: aValue [
 	aValue = 1 
 		ifTrue: [ self flags: self flags | MASK_fOutX ]
 		ifFalse: [ self flags: (self flags bitClear: MASK_fOutX) ]
+
+]
+
+{ #category : #'accessing - structure variables' }
+Win32SerialPortDCB >> fOutxCtsFlow: aValue [ 
+
+	aValue = 1 
+		ifTrue: [ self flags: self flags | MASK_fOutxCtsFlow ]
+		ifFalse: [ self flags: (self flags bitClear: MASK_fOutxCtsFlow) ]
 
 ]
 

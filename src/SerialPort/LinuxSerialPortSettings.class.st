@@ -1,3 +1,6 @@
+"
+I am the struct definition and values for the Linux Serial port Settings
+"
 Class {
 	#name : #LinuxSerialPortSettings,
 	#superclass : #UnixSerialPortSettings,

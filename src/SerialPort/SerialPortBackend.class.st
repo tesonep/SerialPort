@@ -1,3 +1,8 @@
+"
+I implement the backend for the serial port implementation.
+I am responsible of looking up the correct port and using the correct implementation.
+I guarantee that a single port is only open once and shared if it is required by many SerialPort instances.
+"
 Class {
 	#name : #SerialPortBackend,
 	#superclass : #Object,
