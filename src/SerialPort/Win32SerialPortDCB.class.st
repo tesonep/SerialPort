@@ -66,20 +66,20 @@ Win32SerialPortDCB class >> fieldsDesc [
 { #category : #'field definition' }
 Win32SerialPortDCB class >> initialize [
 
-	MASK_fBinary := 1 << 31.
-	MASK_fParity := 1 << 30.
-	MASK_fOutxCtsFlow := 1 << 29.
-	MASK_fOutxDsrFlow := 1 << 28.
-	MASK_fDtrControl := 2r11 << 26.
-	MASK_fDsrSensitivity := 1 << 25.
-	MASK_fTXContinueOnXoff := 1 << 24.
-	MASK_fOutX := 1 << 23.
-	MASK_fInX := 1 << 22.
-	MASK_fErrorChar := 1 << 21.
-	MASK_fNull := 1 << 20.
-	MASK_fRtsControl := 2r11 << 18.
-	MASK_fAbortOnError := 1 << 17.
-	MASK_fDummy2 := 2r11111111111111111.
+	MASK_fBinary := 1.
+	MASK_fParity := 2r10..
+	MASK_fOutxCtsFlow := 1 << 2.
+	MASK_fOutxDsrFlow := 1 << 3.
+	MASK_fDtrControl := 2r11 << 4.
+	MASK_fDsrSensitivity := 1 << 6.
+	MASK_fTXContinueOnXoff := 1 << 7.
+	MASK_fOutX := 1 << 8.
+	MASK_fInX := 1 << 9.
+	MASK_fErrorChar := 1 << 10.
+	MASK_fNull := 1 << 11.
+	MASK_fRtsControl := 2r11 << 12.
+	MASK_fAbortOnError := 1 << 14.
+	MASK_fDummy2 := 16rFFFF8000.
 
 ]
 
@@ -228,12 +228,15 @@ Win32SerialPortDCB >> XonLim: anObject [
 ]
 
 { #category : #'accessing - structure variables' }
-Win32SerialPortDCB >> fDtrControl: aValue [ 
-
-	aValue = 1 
-		ifTrue: [ self flags: self flags | MASK_fDtrControl ]
-		ifFalse: [ self flags: (self flags bitClear: MASK_fDtrControl) ]
-
+Win32SerialPortDCB >> fDtrControl: aTwoBitsValue [ 
+	"legal values: 
+	2r00 = disable
+	2r01 = enable
+	2r10 = handshake "
+	| targetFlags |
+	
+	targetFlags := (aTwoBitsValue bitAnd: 2r11) << (MASK_fDtrControl lowBit - 1).
+	self flags: ((self flags bitAnd: MASK_fDtrControl) bitOr: targetFlags)
 ]
 
 { #category : #'accessing - structure variables' }
@@ -261,6 +264,20 @@ Win32SerialPortDCB >> fOutxCtsFlow: aValue [
 		ifTrue: [ self flags: self flags | MASK_fOutxCtsFlow ]
 		ifFalse: [ self flags: (self flags bitClear: MASK_fOutxCtsFlow) ]
 
+]
+
+{ #category : #'accessing - structure variables' }
+Win32SerialPortDCB >> fRtsControl: aTwoBitsValue [
+	"the meaning of the argument is
+	2r00 - disable 
+	2r01 - enable 
+	2r10 - handshake 
+	2r11 - toggle "
+	
+	| targetFlags |
+	targetFlags := (aTwoBitsValue bitAnd: 2r11) << (MASK_fRtsControl lowBit - 1).
+	self flags: ((self flags bitAnd: MASK_fRtsControl) bitOr: targetFlags)
+	
 ]
 
 { #category : #'accessing - structure variables' }
