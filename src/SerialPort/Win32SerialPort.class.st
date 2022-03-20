@@ -239,7 +239,7 @@ Win32SerialPort >> setBaudRate: baudRate stopBitsType: stopBits parityType: pari
 	dcb ByteSize: dataBytes.
 
  	dcb fInX: 0.
-	dcb fDtrControl: 0.
+	dcb fDtrControl: 1. "needed for Raspberrry Pico"
 	
 	inFlowControlType = 1 ifTrue: [ dcb fInX: 1 ]. "XOn/XOff"
 	inFlowControlType = 2 ifTrue: [ dcb fDtrControl: 1 ]. "Hardware handshake"
